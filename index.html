@@ -1,39 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tech For Girls Registration</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    form {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+
+    #thankYouMsg {
+      text-align: center;
+      color: green;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    #clickCounter {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Tech For Girls Registration 🚀</h1>
 
-    <form id="registrationForm">
-      <label>Name:</label>
-      <input type="text" id="name" required /><br/>
+  <h2>Tech For Girls - Registration Form</h2>
 
-      <label>Phone Number:</label>
-      <input type="number" id="phone" required /><br/>
+  <form id="registrationForm">
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="text" id="phone" placeholder="Phone Number" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="text" id="college" placeholder="College Name" required>
+    <input type="file" id="screenshot" required>
 
-      <label>Email:</label>
-      <input type="email" id="email" required /><br/>
+    <p id="clickCounter">Click Count: 0/5</p>
+    <button type="button" id="shareBtn">Share on WhatsApp</button>
+    <button type="submit" id="submitBtn" disabled>Submit</button>
+  </form>
 
-      <label>College/Department:</label>
-      <input type="text" id="college" required /><br/>
-
-      <label>Upload Screenshot:</label>
-      <input type="file" id="screenshot" required /><br/><br/>
-
-      <button type="button" id="shareBtn">📤 Share on WhatsApp</button>
-      <p id="clickCounter">Click Count: 0/5</p>
-
-      <button type="submit" id="submitBtn" disabled>✅ Submit Registration</button>
-    </form>
-
-    <p id="thankYouMsg" style="display:none;">🎉 Your submission has been recorded. Thanks for being part of Tech for Girls!</p>
-  </div>
+  <p id="thankYouMsg" style="display:none;">✅ Thank you for registering! Your response has been recorded.</p>
 
   <script src="script.js"></script>
 </body>
