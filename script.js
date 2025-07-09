@@ -16,10 +16,7 @@ if (localStorage.getItem('submitted') === 'true') {
 // ✅ WhatsApp Share Button click event
 shareBtn.addEventListener('click', () => {
   if (shareCount < maxShare) {
-    const name = document.getElementById('name').value || 'A friend';
-    const college = document.getElementById('college').value || 'Tech for Girls';
-
-    const message = `Hey Buddy, I'm ${name} from ${college}. Join Tech For Girls Community 💻✨`;
+    const message = "Hey Buddy, Join Tech For Girls Community 💻✨";
     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
 
@@ -28,23 +25,49 @@ shareBtn.addEventListener('click', () => {
 
     if (shareCount >= maxShare) {
       shareBtn.disabled = true;
-      clickCounter.innerText = "Sharing complete. Please continue.";
+      clickCounter.innerText = "✅ Sharing complete. Please continue.";
       submitBtn.disabled = false;
     }
   }
 });
 
-// ✅ Form submit logic
-form.addEventListener('submit', (e) => {
+// ✅ Form submission
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   if (shareCount < maxShare) {
-    alert("Please share on WhatsApp 5 times before submitting!");
+    alert("⚠️ Please share on WhatsApp 5 times before submitting!");
     return;
   }
 
-  // Just show thank you, no Google Sheet
-  form.style.display = 'none';
-  thankYouMsg.style.display = 'block';
-  localStorage.setItem('submitted', 'true');
+  const name = document.getElementById('name').value;
+  const phone = document.getElementById('phone').value;
+  const email = document.getElementById('email').value;
+  const college = document.getElementById('college').value;
+  const file = document.getElementById('screenshot').files[0];
+
+  const fileLink = file ? file.name : "Not uploaded";
+
+  try {
+    await fetch('https://script.google.com/macros/s/AKfycbzuBWD0JyP1oOfEVPnpoamYfjy9uXrCWVPmeAdEyFAJnyiHscZbmKDTcm380P-JgBec/exec', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        phone,
+        email,
+        college,
+        fileLink,
+      }),
+    });
+
+    form.style.display = 'none';
+    thankYouMsg.style.display = 'block';
+    localStorage.setItem('submitted', 'true');
+  } catch (error) {
+    alert("❌ Submission failed. Please try again.");
+    console.error(error);
+  }
 });
