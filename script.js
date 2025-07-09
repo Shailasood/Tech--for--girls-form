@@ -16,7 +16,10 @@ if (localStorage.getItem('submitted') === 'true') {
 // ✅ WhatsApp Share Button click event
 shareBtn.addEventListener('click', () => {
   if (shareCount < maxShare) {
-    const message = "Hey Buddy, Join Tech For Girls Community 💻✨";
+    const name = document.getElementById('name').value;
+    const college = document.getElementById('college').value;
+
+    const message = `Hey! I'm ${name} from ${college}. I'm joining Tech for Girls 🚀`;
     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
 
@@ -31,8 +34,8 @@ shareBtn.addEventListener('click', () => {
   }
 });
 
-// ✅ Form submit logic
-form.addEventListener('submit', async (e) => {
+// ✅ Form submit logic (no backend)
+form.addEventListener('submit', (e) => {
   e.preventDefault();
 
   if (shareCount < maxShare) {
@@ -40,34 +43,7 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
-  const name = document.getElementById('name').value;
-  const phone = document.getElementById('phone').value;
-  const email = document.getElementById('email').value;
-  const college = document.getElementById('college').value;
-  const file = document.getElementById('screenshot').files[0];
-
-  const fileLink = file ? file.name : "Not uploaded";
-
-  try {
-    await fetch('https://script.google.com/macros/s/AKfycbyyc07HUIezYi8r2y7pdnIYPWP6eOaFnzv3JBPZv4y2PwjMphjcxWnwgI3qtG2LMv1SpA/exec', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name,
-        phone,
-        email,
-        college,
-        fileLink,
-      }),
-    });
-
-    form.style.display = 'none';
-    thankYouMsg.style.display = 'block';
-    localStorage.setItem('submitted', 'true');
-  } catch (error) {
-    alert("Submission failed. Please try again.");
-    console.error(error);
-  }
+  form.style.display = 'none';
+  thankYouMsg.style.display = 'block';
+  localStorage.setItem('submitted', 'true');
 });
