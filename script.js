@@ -49,7 +49,7 @@ form.addEventListener('submit', async (e) => {
   const fileLink = file ? file.name : "Not uploaded";
 
   try {
-    await fetch("https://script.google.com/macros/s/AKfycbzuBWD0JyP1oOfEVPnpoamYfjy9uXrCWVPmeAdEyFAJnyiHscZbmKDTcm380P-JgBec/exec ", {
+    await fetch('https://script.google.com/macros/s/AKfycbzuBWD0JyP1oOfEVPnpoamYfjy9uXrCWVPmeAdEyFAJnyiHscZbmKDTcm380P-JgBec/exec', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
