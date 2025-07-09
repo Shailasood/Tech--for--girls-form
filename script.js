@@ -16,10 +16,10 @@ if (localStorage.getItem('submitted') === 'true') {
 // ✅ WhatsApp Share Button click event
 shareBtn.addEventListener('click', () => {
   if (shareCount < maxShare) {
-    const name = document.getElementById('name').value;
-    const college = document.getElementById('college').value;
+    const name = document.getElementById('name').value || 'A friend';
+    const college = document.getElementById('college').value || 'Tech for Girls';
 
-    const message = `Hey! I'm ${name} from ${college}. I'm joining Tech for Girls 🚀`;
+    const message = `Hey Buddy, I'm ${name} from ${college}. Join Tech For Girls Community 💻✨`;
     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
 
@@ -34,7 +34,7 @@ shareBtn.addEventListener('click', () => {
   }
 });
 
-// ✅ Form submit logic (no backend)
+// ✅ Form submit logic
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -43,6 +43,7 @@ form.addEventListener('submit', (e) => {
     return;
   }
 
+  // Just show thank you, no Google Sheet
   form.style.display = 'none';
   thankYouMsg.style.display = 'block';
   localStorage.setItem('submitted', 'true');
