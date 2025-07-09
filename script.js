@@ -7,21 +7,21 @@ const submitBtn = document.getElementById('submitBtn');
 const form = document.getElementById('registrationForm');
 const thankYouMsg = document.getElementById('thankYouMsg');
 
-// Agar pehle hi submit ho chuka hai toh form na dikhaye
+// ✅ If already submitted, hide form
 if (localStorage.getItem('submitted') === 'true') {
   form.style.display = 'none';
   thankYouMsg.style.display = 'block';
 }
 
-// WhatsApp Share Button click event
+// ✅ WhatsApp Share Button click event
 shareBtn.addEventListener('click', () => {
   if (shareCount < maxShare) {
     const message = "Hey Buddy, Join Tech For Girls Community 💻✨";
-    const url = https://wa.me/?text=${encodeURIComponent(message)};
+    const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
 
     shareCount++;
-    clickCounter.innerText = Click Count: ${shareCount}/5;
+    clickCounter.innerText = `Click Count: ${shareCount}/5`;
 
     if (shareCount >= maxShare) {
       shareBtn.disabled = true;
@@ -31,7 +31,7 @@ shareBtn.addEventListener('click', () => {
   }
 });
 
-// Submit button logic with Google Sheets integration
+// ✅ Form submit logic
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -48,21 +48,26 @@ form.addEventListener('submit', async (e) => {
 
   const fileLink = file ? file.name : "Not uploaded";
 
-  await fetch('https://script.google.com/macros/s/AKfycbyyc07HUIezYi8r2y7pdnIYPWP6eOaFnzv3JBPZv4y2PwjMphjcxWnwgI3qtG2LMv1SpA/exec', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      name,
-      phone,
-      email,
-      college,
-      fileLink,
-    }),
-  });
+  try {
+    await fetch('https://script.google.com/macros/s/AKfycbyyc07HUIezYi8r2y7pdnIYPWP6eOaFnzv3JBPZv4y2PwjMphjcxWnwgI3qtG2LMv1SpA/exec', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        phone,
+        email,
+        college,
+        fileLink,
+      }),
+    });
 
-  form.style.display = 'none';
-  thankYouMsg.style.display = 'block';
-  localStorage.setItem('submitted', 'true');
+    form.style.display = 'none';
+    thankYouMsg.style.display = 'block';
+    localStorage.setItem('submitted', 'true');
+  } catch (error) {
+    alert("Submission failed. Please try again.");
+    console.error(error);
+  }
 });
