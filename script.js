@@ -15,20 +15,26 @@ if (localStorage.getItem('submitted') === 'true') {
 
 // ✅ WhatsApp Share Button click event
 shareBtn.addEventListener('click', () => {
-  if (shareCount < maxShare) {
-    const name = document.getElementById('name').value;
-    const college = document.getElementById('college').value;
+  const name = document.getElementById('name').value.trim();
+  const college = document.getElementById('college').value.trim();
 
-    const message = Hey! I'm ${name} from ${college}. I'm joining Tech for Girls 🚀;
-    const url = https://wa.me/?text=${encodeURIComponent(message)};
+  if (!name || !college) {
+    alert("⚠️ Please fill in your Name and College before sharing.");
+    return;
+  }
+
+  if (shareCount < maxShare) {
+    const message = `Hey! I'm ${name} from ${college}. I'm joining Tech for Girls 🚀`;
+    const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+
     window.open(url, '_blank');
 
     shareCount++;
-    clickCounter.innerText = Click Count: ${shareCount}/5;
+    clickCounter.innerText = `Click Count: ${shareCount}/5`;
 
     if (shareCount >= maxShare) {
       shareBtn.disabled = true;
-      clickCounter.innerText = "Sharing complete. Please continue.";
+      clickCounter.innerText = "✅ Sharing complete. Please continue.";
       submitBtn.disabled = false;
     }
   }
@@ -39,7 +45,7 @@ form.addEventListener('submit', (e) => {
   e.preventDefault();
 
   if (shareCount < maxShare) {
-    alert("Please share on WhatsApp 5 times before submitting!");
+    alert("⚠️ Please share on WhatsApp 5 times before submitting!");
     return;
   }
 
